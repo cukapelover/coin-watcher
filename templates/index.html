@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Coin Watcher - Pro</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="header glass-panel">
+        <div class="logo">COIN WATCHER</div>
+        <div class="header-right">
+            <button id="theme-toggle" class="theme-toggle-btn" title="Переключить тему">
+                <span id="theme-icon">🌙</span>
+            </button>
+            <div class="fear-greed-container">
+                <canvas id="fear-greed-canvas" width="100" height="60"></canvas>
+                <div class="fear-greed-label" id="fear-greed-label">--</div>
+            </div>
+            <div class="price-container">
+                <div class="live-price" id="live-price">---</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="controls glass-panel">
+        <select id="ticker-select"></select>
+        <select id="timeframe-select">
+            <option value="1">1 минута</option>
+            <option value="5">5 минут</option>
+            <option value="15" selected>15 минут</option>
+            <option value="60">1 час</option>
+            <option value="240">4 часа</option>
+            <option value="1d">1 день</option>
+            <option value="1w">1 неделя</option>
+            <option value="1M">1 месяц</option>
+        </select>
+
+        <div class="indicator-dropdown">
+            <button class="ind-btn" id="ind-btn">Индикаторы ▼</button>
+            <div class="ind-content" id="ind-content">
+                <label><input type="checkbox" id="toggle-ma" checked> MA (7/25)</label>
+                <label><input type="checkbox" id="toggle-vol" checked> Volume (снизу)</label>
+                <label><input type="checkbox" id="toggle-rsi" checked> RSI (14)</label>
+                <label><input type="checkbox" id="toggle-bb"> Bollinger Bands</label>
+            </div>
+        </div>
+
+        <div class="drawing-toolbar">
+            <button class="tool-btn active" data-tool="cursor" title="Курсор">🖱️</button>
+            <button class="tool-btn" data-tool="line" title="Линия">📏</button>
+            <button class="tool-btn" data-tool="arrow" title="Стрелка">➡️</button>
+            <button class="tool-btn" data-tool="rect" title="Прямоугольник">▭</button>
+            <button class="tool-btn" data-tool="fib" title="Фибоначчи">〰️</button>
+            <button class="tool-btn" data-tool="brush" title="Кисть">🖌️</button>
+            <button class="tool-btn" id="clear-drawings" title="Очистить всё">🗑️</button>
+            <button class="tool-btn" id="fullscreen-btn" title="На весь экран">⛶</button>
+        </div>
+
+        <div class="indicators-panel">
+            <label><input type="checkbox" id="toggle-split"> Сплит (2 графика)</label>
+        </div>
+    </div>
+
+    <div class="main-layout">
+        <div class="charts-area" id="charts-area">
+            <div class="chart-container" id="container-1">
+                <div class="chart-header">
+                    <span></span>
+                    <div class="chart-info">
+                        <span class="chart-price" id="chart-price-1">---</span>
+                        <span class="chart-timer" id="chart-timer">--:--</span>
+                    </div>
+                </div>
+                <div class="chart-wrapper glass-panel" id="chart-wrapper-1">
+                    <canvas id="chart-canvas-1"></canvas>
+                </div>
+            </div>
+
+            <div class="resizer" id="dragMe" style="display: none;"></div>
+
+            <div class="chart-container" id="container-2" style="display: none;">
+                <div class="chart-header">
+                    <div style="display: flex; gap: 10px;">
+                        <select id="ticker-select-2" class="mini-select"></select>
+                        <select id="timeframe-select-2" class="mini-select">
+                            <option value="1">1м</option>
+                            <option value="5">5м</option>
+                            <option value="15">15м</option>
+                            <option value="60">1ч</option>
+                            <option value="240">4ч</option>
+                            <option value="1d">1д</option>
+                            <option value="1w">1н</option>
+                            <option value="1M">1М</option>
+                        </select>
+                    </div>
+                    <div class="chart-info">
+                        <span class="chart-price" id="chart-price-2">---</span>
+                        <span class="chart-timer" id="chart-timer-2">--:--</span>
+                    </div>
+                </div>
+                <div class="chart-wrapper glass-panel" id="chart-wrapper-2">
+                    <canvas id="chart-canvas-2"></canvas>
+                </div>
+            </div>
+
+            <div class="resizer" id="dragRsi"></div>
+
+            <div id="rsi-wrapper" class="glass-panel" style="display: block;">
+                <div class="panel-label" id="rsi-label">RSI (BTC)</div>
+                <canvas id="rsi-canvas"></canvas>
+            </div>
+        </div>
+
+        <div class="orderbook-area glass-panel" id="orderbook-panel">
+            <div class="ob-header" id="ob-header-toggle">
+                <span id="ob-label">Order Book (BTC)</span>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <span class="ob-toggle" id="toggle-ob">ON</span>
+                    <span class="collapse-icon" id="collapse-icon">▼</span>
+                </div>
+            </div>
+            <div class="ob-content-wrapper" id="ob-content-wrapper">
+                <div class="ob-columns">
+                    <span>Price (USDT)</span>
+                    <span>Amount</span>
+                </div>
+                <div id="orderbook-content"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>
